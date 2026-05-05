@@ -1,0 +1,2116 @@
+/* ============================================================
+   PORTAL DE CLIENTES — HOJA DE ESTILOS PRINCIPAL
+   Diseño: Glassmorphism + Dark Theme profesional
+   Fuente: Inter (Google Fonts)
+   Autor: Portafolio Web
+   ============================================================ */
+
+/* ──────────────────────────────────────────
+   IMPORTACIÓN DE FUENTES
+   ────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ──────────────────────────────────────────
+   VARIABLES GLOBALES DEL SISTEMA DE DISEÑO
+   Todas las propiedades reutilizables del tema
+   ────────────────────────────────────────── */
+:root {
+  /* Colores primarios */
+  --primario:            #6366f1;       /* Índigo principal */
+  --primario-hover:      #4f46e5;       /* Índigo al pasar el cursor */
+  --primario-claro:      rgba(99, 102, 241, 0.12); /* Fondo suave primario */
+  --primario-brillo:     rgba(99, 102, 241, 0.25); /* Brillo en hover */
+  --secundario:          #8b5cf6;       /* Violeta complementario */
+  --acento:              #06b6d4;       /* Cian de acento */
+
+  /* Fondos del tema oscuro */
+  --fondo-base:          #080812;       /* Fondo más oscuro de la app */
+  --fondo-panel:         #0d0d1f;       /* Fondo del sidebar/panel */
+  --fondo-tarjeta:       rgba(255, 255, 255, 0.04); /* Tarjetas translúcidas */
+  --fondo-tarjeta-hover: rgba(255, 255, 255, 0.07); /* Tarjeta al hover */
+  --fondo-input:         rgba(255, 255, 255, 0.06); /* Fondo de inputs */
+  --fondo-input-focus:   rgba(255, 255, 255, 0.09); /* Input enfocado */
+
+  /* Colores de texto */
+  --texto-principal:     #f0f4f8;       /* Texto blanco principal */
+  --texto-secundario:    #c2cfe0;       /* Texto gris claro — legible */
+  --texto-suave:         #8899b0;       /* Texto suave — placeholders */
+  --texto-inverso:       #080812;       /* Texto sobre fondos claros */
+
+  /* Bordes */
+  --borde:               rgba(255, 255, 255, 0.08); /* Borde por defecto */
+  --borde-activo:        rgba(99, 102, 241, 0.5);   /* Borde elemento activo */
+  --borde-hover:         rgba(255, 255, 255, 0.15); /* Borde al hover */
+
+  /* Estados semánticos */
+  --exito:               #10b981;       /* Verde éxito */
+  --exito-claro:         rgba(16, 185, 129, 0.12);
+  --advertencia:         #f59e0b;       /* Amarillo advertencia */
+  --advertencia-claro:   rgba(245, 158, 11, 0.12);
+  --error:               #ef4444;       /* Rojo error */
+  --error-claro:         rgba(239, 68, 68, 0.12);
+  --info:                #3b82f6;       /* Azul información */
+  --info-claro:          rgba(59, 130, 246, 0.12);
+
+  /* Sombras */
+  --sombra-sm:           0 2px 8px rgba(0, 0, 0, 0.25);
+  --sombra:              0 4px 24px rgba(0, 0, 0, 0.35);
+  --sombra-lg:           0 8px 40px rgba(0, 0, 0, 0.45);
+  --sombra-primario:     0 4px 20px rgba(99, 102, 241, 0.35);
+  --sombra-exito:        0 4px 20px rgba(16, 185, 129, 0.25);
+
+  /* Transiciones */
+  --transicion:          all 0.2s ease;
+  --transicion-lenta:    all 0.35s ease;
+
+  /* Bordes redondeados */
+  --radio-sm:            6px;
+  --radio:               12px;
+  --radio-lg:            18px;
+  --radio-xl:            24px;
+  --radio-pill:          999px;
+
+  /* Tipografía */
+  --fuente:              'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Ancho del sidebar */
+  --ancho-sidebar:       260px;
+  --ancho-sidebar-col:   72px;
+}
+
+/* ──────────────────────────────────────────
+   RESET Y BASE GLOBAL
+   Normaliza comportamientos entre navegadores
+   ────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;  /* Incluye padding/border en el tamaño */
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth; /* Scroll suave al navegar por anclas */
+}
+
+body {
+  font-family: var(--fuente);
+  background-color: var(--fondo-base);
+  color: var(--texto-principal);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;      /* Evita scroll horizontal */
+  -webkit-font-smoothing: antialiased; /* Fuente más suave en WebKit */
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.35);
+  border-radius: var(--radio-pill);
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(99, 102, 241, 0.6); }
+
+/* ──────────────────────────────────────────
+   PÁGINA DE LOGIN
+   Layout dividido: branding izquierda / form derecha
+   ────────────────────────────────────────── */
+
+/* Contenedor raíz de la página de inicio de sesión */
+.pagina-login {
+  display: flex;
+  min-height: 100vh;
+  background: var(--fondo-base);
+}
+
+/* Panel izquierdo con gradiente y marca */
+.panel-marca {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 40px;
+  background: linear-gradient(135deg, #0d0d2b 0%, #1a1040 50%, #0d1a3f 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decoraciones de fondo en el panel de marca */
+.panel-marca::before {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+  top: -100px;
+  left: -100px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.panel-marca::after {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, transparent 70%);
+  bottom: -80px;
+  right: -80px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Logo en el panel de marca */
+.logo-marca {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 48px;
+  z-index: 1;
+}
+
+/* Ícono del logo */
+.logo-marca .icono-logo {
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, var(--primario), var(--secundario));
+  border-radius: var(--radio);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: var(--sombra-primario);
+}
+
+/* Nombre de la aplicación */
+.logo-marca .nombre-app {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--texto-principal);
+  letter-spacing: -0.3px;
+}
+
+/* Subtítulo del panel de marca */
+.subtitulo-marca {
+  font-size: 13px;
+  color: var(--texto-suave);
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Contenido central del panel */
+.contenido-marca {
+  text-align: center;
+  z-index: 1;
+  max-width: 380px;
+}
+
+.contenido-marca h1 {
+  font-size: 38px;
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #fff 30%, rgba(139, 92, 246, 0.9) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -1px;
+}
+
+.contenido-marca p {
+  font-size: 15px;
+  color: var(--texto-secundario);
+  line-height: 1.7;
+}
+
+/* Lista de características en el panel */
+.lista-caracteristicas {
+  list-style: none;
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: left;
+}
+
+.lista-caracteristicas li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--texto-secundario);
+}
+
+/* Ícono de check en cada característica */
+.lista-caracteristicas li .check {
+  width: 28px;
+  height: 28px;
+  background: var(--exito-claro);
+  border-radius: var(--radio-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  flex-shrink: 0;
+  color: var(--exito);
+}
+
+/* Panel derecho con el formulario de login */
+.panel-formulario {
+  width: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 40px;
+  background: var(--fondo-base);
+  border-left: 1px solid var(--borde);
+}
+
+/* Tarjeta contenedora del formulario */
+.tarjeta-login {
+  width: 100%;
+  max-width: 380px;
+}
+
+/* Encabezado del formulario de login */
+.encabezado-login {
+  margin-bottom: 36px;
+}
+
+.encabezado-login h2 {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--texto-principal);
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.encabezado-login p {
+  font-size: 14px;
+  color: var(--texto-secundario);
+}
+
+/* Formulario de inicio de sesión */
+#formulario-login {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Grupo de campo (label + input) */
+.grupo-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.grupo-campo label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--texto-secundario);
+  letter-spacing: 0.2px;
+}
+
+/* Wrapper con ícono dentro del input */
+.campo-con-icono {
+  position: relative;
+}
+
+/* Ícono posicionado dentro del input */
+.campo-con-icono .icono-campo {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--texto-suave);
+  font-size: 16px;
+  pointer-events: none;   /* No captura clics */
+  transition: var(--transicion);
+}
+
+/* Inputs del formulario */
+.campo-con-icono input {
+  width: 100%;
+  padding: 13px 14px 13px 44px;
+  background: var(--fondo-input);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  color: var(--texto-principal);
+  font-family: var(--fuente);
+  font-size: 14px;
+  transition: var(--transicion);
+  outline: none;
+}
+
+/* Estado focus del input — borde resaltado */
+.campo-con-icono input:focus {
+  background: var(--fondo-input-focus);
+  border-color: var(--borde-activo);
+  box-shadow: 0 0 0 3px var(--primario-claro);
+}
+
+.campo-con-icono input:focus + .icono-campo,
+.campo-con-icono input:focus ~ .icono-campo {
+  color: var(--primario);
+}
+
+/* Corrige el ícono cuando está después del input */
+.campo-con-icono input:focus ~ .icono-campo { color: var(--primario); }
+.campo-con-icono:focus-within .icono-campo  { color: var(--primario); }
+
+/* Placeholder style */
+.campo-con-icono input::placeholder { color: var(--texto-suave); }
+
+/* Toggle de mostrar/ocultar contraseña */
+.toggle-password {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--texto-suave);
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px;
+  transition: var(--transicion);
+  line-height: 1;
+}
+.toggle-password:hover { color: var(--texto-secundario); }
+
+/* Zona del error de autenticación */
+#mensaje-error {
+  display: none;              /* Oculto por defecto */
+  padding: 12px 16px;
+  background: var(--error-claro);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: var(--radio);
+  color: var(--error);
+  font-size: 13px;
+  font-weight: 500;
+  align-items: center;
+  gap: 8px;
+}
+
+#mensaje-error.visible {
+  display: flex;              /* Se muestra cuando tiene la clase visible */
+}
+
+/* Botón principal de acción */
+.boton-primario {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--primario), var(--secundario));
+  border: none;
+  border-radius: var(--radio);
+  color: #fff;
+  font-family: var(--fuente);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transicion);
+  box-shadow: var(--sombra-primario);
+  letter-spacing: 0.2px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efecto de brillo al hover en el botón */
+.boton-primario::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0);
+  transition: var(--transicion);
+}
+
+.boton-primario:hover { transform: translateY(-1px); box-shadow: 0 6px 28px rgba(99, 102, 241, 0.45); }
+.boton-primario:hover::before { background: rgba(255, 255, 255, 0.08); }
+.boton-primario:active { transform: translateY(0); }
+
+/* Estado loading del botón */
+.boton-primario.cargando {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+/* Credenciales de demo visibles en login */
+.credenciales-demo {
+  margin-top: 28px;
+  padding: 16px;
+  background: var(--fondo-tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+}
+
+.credenciales-demo p {
+  font-size: 12px;
+  color: var(--texto-suave);
+  margin-bottom: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Cada opción de usuario demo */
+.usuario-demo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-radius: var(--radio-sm);
+  cursor: pointer;
+  transition: var(--transicion);
+  border: 1px solid transparent;
+  margin-bottom: 6px;
+}
+.usuario-demo:last-child { margin-bottom: 0; }
+
+.usuario-demo:hover {
+  background: var(--fondo-tarjeta-hover);
+  border-color: var(--borde-hover);
+}
+
+.usuario-demo .info-usuario {
+  display: flex;
+  flex-direction: column;
+}
+
+.usuario-demo .nombre-usuario {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--texto-principal);
+}
+
+.usuario-demo .email-usuario {
+  font-size: 11px;
+  color: var(--texto-suave);
+}
+
+/* Badge de rol del usuario demo */
+.badge-rol {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: var(--radio-pill);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.badge-rol.admin { background: var(--primario-claro); color: var(--primario); }
+.badge-rol.cliente { background: var(--acento-claro, rgba(6, 182, 212, 0.12)); color: var(--acento); }
+
+
+/* ──────────────────────────────────────────
+   LAYOUT PRINCIPAL DE LA APP
+   Sidebar + Área de contenido
+   ────────────────────────────────────────── */
+
+/* Wrapper principal que envuelve sidebar + contenido */
+.app-contenedor {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ──────────────────────────────────────────
+   SIDEBAR / MENÚ LATERAL
+   ────────────────────────────────────────── */
+.sidebar {
+  width: var(--ancho-sidebar);
+  background: var(--fondo-panel);
+  border-right: 1px solid var(--borde);
+  display: flex;
+  flex-direction: column;
+  position: fixed;          /* Fijo al hacer scroll */
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 100;
+  transition: var(--transicion-lenta);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Logo en la parte superior del sidebar */
+.sidebar-logo {
+  padding: 24px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--borde);
+  flex-shrink: 0;
+}
+
+.sidebar-logo .icono-logo {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;          /* Evita que se comprima */
+  background: linear-gradient(135deg, var(--primario), var(--secundario));
+  border-radius: var(--radio-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow: var(--sombra-primario);
+}
+
+.sidebar-logo .texto-logo {
+  overflow: hidden;
+}
+
+.sidebar-logo .nombre-logo {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--texto-principal);
+  white-space: nowrap;
+}
+
+.sidebar-logo .version-logo {
+  font-size: 11px;
+  color: var(--texto-suave);
+}
+
+/* Contenedor del perfil de usuario en sidebar */
+.sidebar-usuario {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--borde);
+  flex-shrink: 0;
+}
+
+/* Avatar circular del usuario */
+.avatar-usuario {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  background: linear-gradient(135deg, var(--primario), var(--secundario));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.sidebar-usuario .info-perfil {
+  overflow: hidden;
+  flex: 1;
+}
+
+.sidebar-usuario .nombre-perfil {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--texto-principal);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-usuario .empresa-perfil {
+  font-size: 11px;
+  color: var(--texto-suave);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Navegación principal del sidebar */
+.sidebar-nav {
+  padding: 16px 12px;
+  flex: 1;
+}
+
+/* Etiqueta de sección en la navegación */
+.nav-seccion-titulo {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--texto-suave);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 4px 8px 10px;
+  display: block;
+}
+
+/* Cada enlace del menú de navegación */
+.nav-enlace {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 12px;
+  border-radius: var(--radio);
+  color: var(--texto-secundario);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: var(--transicion);
+  margin-bottom: 2px;
+  position: relative;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* Estado hover del enlace — fondo suave */
+.nav-enlace:hover {
+  background: var(--fondo-tarjeta-hover);
+  color: var(--texto-principal);
+  border-color: var(--borde);
+}
+
+/* Estado activo — resaltado con color primario */
+.nav-enlace.activo {
+  background: var(--primario-claro);
+  color: var(--primario);
+  border-color: var(--borde-activo);
+}
+
+/* Ícono del enlace */
+.nav-enlace .nav-icono {
+  font-size: 18px;
+  min-width: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Texto del enlace */
+.nav-enlace .nav-texto {
+  flex: 1;
+}
+
+/* Badge de notificación en el enlace */
+.nav-badge {
+  background: var(--primario);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: var(--radio-pill);
+  min-width: 20px;
+  text-align: center;
+}
+
+/* Botón de cerrar sesión en la parte inferior del sidebar */
+.sidebar-footer {
+  padding: 12px;
+  border-top: 1px solid var(--borde);
+  flex-shrink: 0;
+}
+
+.boton-cerrar-sesion {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 11px 12px;
+  border-radius: var(--radio);
+  background: none;
+  border: 1px solid transparent;
+  color: var(--texto-secundario);
+  font-family: var(--fuente);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transicion);
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.boton-cerrar-sesion:hover {
+  background: var(--error-claro);
+  border-color: rgba(239, 68, 68, 0.2);
+  color: var(--error);
+}
+
+/* ──────────────────────────────────────────
+   ÁREA DE CONTENIDO PRINCIPAL
+   ────────────────────────────────────────── */
+.contenido-principal {
+  flex: 1;
+  margin-left: var(--ancho-sidebar); /* Deja espacio para el sidebar fijo */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header superior de cada página */
+.header-pagina {
+  position: sticky;         /* Se queda arriba al hacer scroll */
+  top: 0;
+  z-index: 50;
+  background: rgba(8, 8, 18, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--borde);
+  padding: 0 32px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* Botón para abrir/cerrar sidebar en móvil */
+.boton-menu-movil {
+  display: none;            /* Oculto en desktop */
+  background: none;
+  border: none;
+  color: var(--texto-principal);
+  font-size: 22px;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: var(--radio-sm);
+  transition: var(--transicion);
+  line-height: 1;
+}
+.boton-menu-movil:hover { background: var(--fondo-tarjeta-hover); }
+
+/* Título de la página actual */
+.titulo-pagina {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.titulo-pagina h1 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--texto-principal);
+  letter-spacing: -0.3px;
+}
+
+/* Breadcrumb / ruta de navegación */
+.ruta-navegacion {
+  font-size: 13px;
+  color: var(--texto-suave);
+}
+
+/* Acciones del header (derecha) */
+.header-acciones {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Botón de icono circular (notificaciones, etc) */
+.boton-icono {
+  width: 38px;
+  height: 38px;
+  background: var(--fondo-tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transicion);
+  color: var(--texto-secundario);
+  font-size: 16px;
+  position: relative;
+}
+.boton-icono:hover {
+  background: var(--fondo-tarjeta-hover);
+  border-color: var(--borde-hover);
+  color: var(--texto-principal);
+}
+
+/* Punto rojo de notificación sobre ícono */
+.punto-notificacion {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 8px;
+  height: 8px;
+  background: var(--primario);
+  border-radius: 50%;
+  border: 2px solid var(--fondo-base);
+}
+
+/* Contenedor del scroll del contenido de la página */
+.pagina-scroll {
+  flex: 1;
+  padding: 32px;
+  overflow-y: auto;
+}
+
+/* ──────────────────────────────────────────
+   TARJETAS / CARDS
+   ────────────────────────────────────────── */
+
+/* Tarjeta base — glassmorphism */
+.tarjeta {
+  background: var(--fondo-tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-lg);
+  padding: 24px;
+  transition: var(--transicion);
+}
+
+.tarjeta:hover {
+  border-color: var(--borde-hover);
+  background: var(--fondo-tarjeta-hover);
+}
+
+/* Tarjeta de estadística (KPI) */
+.tarjeta-estadistica {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 24px;
+  background: var(--fondo-tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-lg);
+  transition: var(--transicion);
+}
+
+.tarjeta-estadistica:hover {
+  border-color: var(--borde-hover);
+  background: var(--fondo-tarjeta-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--sombra);
+}
+
+/* Ícono grande de la tarjeta de estadística */
+.icono-estadistica {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radio);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+/* Variantes de color para el ícono */
+.icono-estadistica.primario  { background: var(--primario-claro);  color: var(--primario);  }
+.icono-estadistica.exito     { background: var(--exito-claro);     color: var(--exito);     }
+.icono-estadistica.advertencia { background: var(--advertencia-claro); color: var(--advertencia); }
+.icono-estadistica.info      { background: var(--info-claro);      color: var(--info);      }
+
+.info-estadistica { flex: 1; }
+
+.info-estadistica .etiqueta-estadistica {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--texto-suave);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.info-estadistica .valor-estadistica {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--texto-principal);
+  line-height: 1;
+  letter-spacing: -1px;
+  margin-bottom: 6px;
+}
+
+.info-estadistica .tendencia-estadistica {
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.tendencia-estadistica.positiva { color: var(--exito); }
+.tendencia-estadistica.negativa { color: var(--error); }
+.tendencia-estadistica.neutral  { color: var(--texto-suave); }
+
+/* ──────────────────────────────────────────
+   GRID DE ESTADÍSTICAS
+   ────────────────────────────────────────── */
+.grid-estadisticas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+/* Grid genérico de 2 columnas para contenido */
+.grid-dos-columnas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+/* Grid genérico de 3 columnas */
+.grid-tres-columnas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* ──────────────────────────────────────────
+   ENCABEZADOS DE SECCIÓN
+   ────────────────────────────────────────── */
+.seccion-encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  gap: 12px;
+}
+
+.seccion-encabezado h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--texto-principal);
+  letter-spacing: -0.2px;
+}
+
+.seccion-encabezado p {
+  font-size: 13px;
+  color: var(--texto-suave);
+  margin-top: 2px;
+}
+
+/* ──────────────────────────────────────────
+   TABLAS DE DATOS
+   ────────────────────────────────────────── */
+.contenedor-tabla {
+  width: 100%;
+  overflow-x: auto;         /* Scroll horizontal en pantallas pequeñas */
+}
+
+.tabla-datos {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Encabezados de columna */
+.tabla-datos thead th {
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--texto-suave);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 1px solid var(--borde);
+  white-space: nowrap;
+}
+
+/* Filas de datos */
+.tabla-datos tbody tr {
+  border-bottom: 1px solid var(--borde);
+  transition: var(--transicion);
+}
+
+.tabla-datos tbody tr:last-child { border-bottom: none; }
+
+/* Hover de fila — fondo suave sin ocultar texto */
+.tabla-datos tbody tr:hover {
+  background: var(--fondo-tarjeta-hover);
+}
+
+.tabla-datos tbody td {
+  padding: 14px 16px;
+  font-size: 14px;
+  color: var(--texto-principal);
+  vertical-align: middle;
+}
+
+/* ──────────────────────────────────────────
+   BADGES DE ESTADO
+   Pastillas de color para estados
+   ────────────────────────────────────────── */
+.badge-estado {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: var(--radio-pill);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+/* Punto indicador dentro del badge */
+.badge-estado::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+/* Variantes de colores para los badges */
+.badge-estado.pagada,
+.badge-estado.entregado,
+.badge-estado.completado {
+  background: var(--exito-claro);
+  color: var(--exito);
+}
+.badge-estado.pagada::before,
+.badge-estado.entregado::before,
+.badge-estado.completado::before  { background: var(--exito); }
+
+.badge-estado.pendiente,
+.badge-estado.en-proceso,
+.badge-estado.en-transito {
+  background: var(--advertencia-claro);
+  color: var(--advertencia);
+}
+.badge-estado.pendiente::before,
+.badge-estado.en-proceso::before,
+.badge-estado.en-transito::before { background: var(--advertencia); }
+
+.badge-estado.vencida,
+.badge-estado.cancelado,
+.badge-estado.error {
+  background: var(--error-claro);
+  color: var(--error);
+}
+.badge-estado.vencida::before,
+.badge-estado.cancelado::before,
+.badge-estado.error::before       { background: var(--error); }
+
+.badge-estado.enviado,
+.badge-estado.info {
+  background: var(--info-claro);
+  color: var(--info);
+}
+.badge-estado.enviado::before,
+.badge-estado.info::before        { background: var(--info); }
+
+/* ──────────────────────────────────────────
+   BOTONES GENERALES
+   ────────────────────────────────────────── */
+
+/* Botón secundario (outline) */
+.boton-secundario {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  background: var(--fondo-tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  color: var(--texto-principal);
+  font-family: var(--fuente);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transicion);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.boton-secundario:hover {
+  background: var(--fondo-tarjeta-hover);
+  border-color: var(--borde-hover);
+}
+
+/* Botón pequeño */
+.boton-sm {
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: var(--radio-sm);
+}
+
+/* Botón de acción con color */
+.boton-accion {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  background: var(--primario-claro);
+  border: 1px solid var(--borde-activo);
+  border-radius: var(--radio);
+  color: var(--primario);
+  font-family: var(--fuente);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transicion);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.boton-accion:hover {
+  background: var(--primario);
+  color: #fff;
+  border-color: var(--primario);
+  box-shadow: var(--sombra-primario);
+}
+
+/* ──────────────────────────────────────────
+   BARRA DE BÚSQUEDA Y FILTROS
+   ────────────────────────────────────────── */
+.barra-herramientas {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+/* Campo de búsqueda */
+.campo-busqueda {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+  max-width: 360px;
+}
+
+.campo-busqueda .icono-busqueda {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--texto-suave);
+  font-size: 15px;
+  pointer-events: none;
+}
+
+.campo-busqueda input {
+  width: 100%;
+  padding: 10px 14px 10px 40px;
+  background: var(--fondo-input);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  color: var(--texto-principal);
+  font-family: var(--fuente);
+  font-size: 13px;
+  outline: none;
+  transition: var(--transicion);
+}
+
+.campo-busqueda input:focus {
+  border-color: var(--borde-activo);
+  background: var(--fondo-input-focus);
+  box-shadow: 0 0 0 3px var(--primario-claro);
+}
+
+.campo-busqueda input::placeholder { color: var(--texto-suave); }
+
+/* Select/Filtro */
+.filtro-select {
+  padding: 10px 14px;
+  background: var(--fondo-input);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  color: var(--texto-principal);
+  font-family: var(--fuente);
+  font-size: 13px;
+  outline: none;
+  cursor: pointer;
+  transition: var(--transicion);
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 34px;
+}
+
+.filtro-select:focus {
+  border-color: var(--borde-activo);
+  box-shadow: 0 0 0 3px var(--primario-claro);
+}
+
+/* ──────────────────────────────────────────
+   TIMELINE DE SEGUIMIENTO DE PEDIDOS
+   ────────────────────────────────────────── */
+.timeline-seguimiento {
+  position: relative;
+  padding-left: 32px;
+}
+
+/* Línea vertical del timeline */
+.timeline-seguimiento::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: var(--borde);
+}
+
+/* Cada evento en el timeline */
+.timeline-evento {
+  position: relative;
+  padding-bottom: 28px;
+}
+
+.timeline-evento:last-child { padding-bottom: 0; }
+
+/* Punto del evento en la línea */
+.timeline-punto {
+  position: absolute;
+  left: -28px;
+  top: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--fondo-panel);
+  border: 2px solid var(--borde);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  transition: var(--transicion);
+}
+
+/* Punto completado */
+.timeline-punto.completado {
+  border-color: var(--exito);
+  background: var(--exito-claro);
+  color: var(--exito);
+}
+
+/* Punto activo/actual */
+.timeline-punto.activo {
+  border-color: var(--primario);
+  background: var(--primario-claro);
+  color: var(--primario);
+  box-shadow: 0 0 0 4px var(--primario-claro);
+}
+
+/* Contenido del evento */
+.timeline-contenido {
+  background: var(--fondo-tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 14px 16px;
+  transition: var(--transicion);
+}
+
+.timeline-contenido:hover { border-color: var(--borde-hover); }
+
+.timeline-titulo {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--texto-principal);
+  margin-bottom: 4px;
+}
+
+.timeline-descripcion {
+  font-size: 13px;
+  color: var(--texto-secundario);
+  margin-bottom: 6px;
+}
+
+.timeline-fecha {
+  font-size: 11px;
+  color: var(--texto-suave);
+}
+
+/* ──────────────────────────────────────────
+   CHAT
+   ────────────────────────────────────────── */
+.chat-contenedor {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 140px); /* Resta header */
+  min-height: 500px;
+}
+
+/* Área de mensajes con scroll */
+.chat-mensajes {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--fondo-tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-lg) var(--radio-lg) 0 0;
+}
+
+/* Mensaje individual */
+.mensaje {
+  display: flex;
+  gap: 10px;
+  max-width: 75%;
+}
+
+/* Mensaje enviado por el usuario (derecha) */
+.mensaje.enviado {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+/* Burbuja del mensaje */
+.burbuja-mensaje {
+  padding: 12px 16px;
+  border-radius: var(--radio-lg);
+  font-size: 14px;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+/* Burbuja del agente/soporte */
+.mensaje.recibido .burbuja-mensaje {
+  background: var(--fondo-tarjeta-hover);
+  border: 1px solid var(--borde);
+  color: var(--texto-principal);
+  border-radius: 4px var(--radio-lg) var(--radio-lg) var(--radio-lg);
+}
+
+/* Burbuja del usuario */
+.mensaje.enviado .burbuja-mensaje {
+  background: linear-gradient(135deg, var(--primario), var(--secundario));
+  color: #fff;
+  border-radius: var(--radio-lg) 4px var(--radio-lg) var(--radio-lg);
+}
+
+/* Hora del mensaje */
+.hora-mensaje {
+  font-size: 10px;
+  color: var(--texto-suave);
+  margin-top: 4px;
+  padding: 0 4px;
+}
+
+.mensaje.enviado .hora-mensaje { text-align: right; }
+
+/* Avatar pequeño en el chat */
+.avatar-chat {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.avatar-chat.soporte {
+  background: var(--primario-claro);
+  color: var(--primario);
+  border: 1px solid var(--borde-activo);
+}
+
+.avatar-chat.usuario {
+  background: linear-gradient(135deg, var(--primario), var(--secundario));
+  color: #fff;
+}
+
+/* Indicador de que el agente está escribiendo */
+.escribiendo {
+  display: none;            /* Se muestra via JS */
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  background: var(--fondo-tarjeta-hover);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-lg);
+  font-size: 12px;
+  color: var(--texto-suave);
+  width: fit-content;
+}
+
+.escribiendo.visible { display: flex; }
+
+/* Puntos animados de "escribiendo..." */
+.puntos-escritura {
+  display: flex;
+  gap: 3px;
+}
+
+.puntos-escritura span {
+  width: 5px;
+  height: 5px;
+  background: var(--texto-suave);
+  border-radius: 50%;
+  animation: rebote 1.2s infinite;
+}
+
+.puntos-escritura span:nth-child(2) { animation-delay: 0.2s; }
+.puntos-escritura span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes rebote {
+  0%, 60%, 100% { transform: translateY(0); }
+  30%           { transform: translateY(-6px); }
+}
+
+/* Área de entrada del chat */
+.chat-entrada {
+  display: flex;
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--fondo-panel);
+  border: 1px solid var(--borde);
+  border-top: none;
+  border-radius: 0 0 var(--radio-lg) var(--radio-lg);
+  align-items: flex-end;
+}
+
+/* Textarea de escritura del mensaje */
+.textarea-mensaje {
+  flex: 1;
+  padding: 12px 16px;
+  background: var(--fondo-input);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  color: var(--texto-principal);
+  font-family: var(--fuente);
+  font-size: 14px;
+  resize: none;
+  outline: none;
+  transition: var(--transicion);
+  max-height: 120px;
+  min-height: 46px;
+  line-height: 1.5;
+}
+
+.textarea-mensaje:focus {
+  border-color: var(--borde-activo);
+  background: var(--fondo-input-focus);
+  box-shadow: 0 0 0 3px var(--primario-claro);
+}
+
+.textarea-mensaje::placeholder { color: var(--texto-suave); }
+
+/* Botón de enviar mensaje */
+.boton-enviar {
+  width: 46px;
+  height: 46px;
+  background: linear-gradient(135deg, var(--primario), var(--secundario));
+  border: none;
+  border-radius: var(--radio);
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transicion);
+  flex-shrink: 0;
+  box-shadow: var(--sombra-primario);
+}
+
+.boton-enviar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45);
+}
+
+.boton-enviar:active { transform: scale(0.98); }
+
+/* ──────────────────────────────────────────
+   ESTADO VACÍO (sin datos)
+   ────────────────────────────────────────── */
+.estado-vacio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  text-align: center;
+  color: var(--texto-suave);
+}
+
+.estado-vacio .icono-vacio {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.4;
+}
+
+.estado-vacio h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--texto-secundario);
+  margin-bottom: 8px;
+}
+
+.estado-vacio p {
+  font-size: 13px;
+  max-width: 280px;
+}
+
+/* ──────────────────────────────────────────
+   MODAL / DIÁLOGO
+   ────────────────────────────────────────── */
+.overlay-modal {
+  display: none;            /* Oculto por defecto */
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.overlay-modal.visible { display: flex; }
+
+.modal {
+  background: var(--fondo-panel);
+  border: 1px solid var(--borde-hover);
+  border-radius: var(--radio-xl);
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: entradaModal 0.25s ease;
+}
+
+@keyframes entradaModal {
+  from { opacity: 0; transform: scale(0.95) translateY(-10px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--borde);
+}
+
+.modal-cabecera h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--texto-principal);
+}
+
+.boton-cerrar-modal {
+  width: 32px;
+  height: 32px;
+  background: var(--fondo-tarjeta-hover);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-sm);
+  color: var(--texto-secundario);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: var(--transicion);
+}
+.boton-cerrar-modal:hover { background: var(--error-claro); color: var(--error); border-color: rgba(239,68,68,0.2); }
+
+.modal-cuerpo { padding: 24px; }
+
+/* ──────────────────────────────────────────
+   PAGINACIÓN
+   ────────────────────────────────────────── */
+.paginacion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0 0;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.info-paginacion {
+  font-size: 13px;
+  color: var(--texto-suave);
+}
+
+.controles-paginacion {
+  display: flex;
+  gap: 6px;
+}
+
+/* Botón de página individual */
+.boton-pagina {
+  width: 34px;
+  height: 34px;
+  background: var(--fondo-tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-sm);
+  color: var(--texto-secundario);
+  font-family: var(--fuente);
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transicion);
+}
+
+.boton-pagina:hover {
+  background: var(--fondo-tarjeta-hover);
+  border-color: var(--borde-hover);
+  color: var(--texto-principal);
+}
+
+.boton-pagina.activa {
+  background: var(--primario-claro);
+  border-color: var(--borde-activo);
+  color: var(--primario);
+  font-weight: 600;
+}
+
+/* ──────────────────────────────────────────
+   SKELETON LOADER — sin animación infinite
+   para evitar parpadeo constante en la UI
+   ────────────────────────────────────────── */
+.skeleton {
+  background: var(--fondo-tarjeta);
+  border-radius: var(--radio-sm);
+  opacity: 0.5;
+}
+
+/* ──────────────────────────────────────────
+   OVERLAY DEL SIDEBAR EN MÓVIL
+   ────────────────────────────────────────── */
+.overlay-sidebar {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 99;
+  backdrop-filter: blur(2px);
+}
+
+.overlay-sidebar.visible { display: block; }
+
+/* ──────────────────────────────────────────
+   UTILIDADES GENERALES
+   ────────────────────────────────────────── */
+.texto-primario   { color: var(--primario); }
+.texto-exito      { color: var(--exito); }
+.texto-advertencia { color: var(--advertencia); }
+.texto-error      { color: var(--error); }
+.texto-suave      { color: var(--texto-suave); }
+.texto-secundario { color: var(--texto-secundario); }
+
+.negrita   { font-weight: 700; }
+.semibold  { font-weight: 600; }
+.monoespaciado { font-family: 'Courier New', monospace; letter-spacing: 0.5px; }
+
+.separador {
+  width: 100%;
+  height: 1px;
+  background: var(--borde);
+  margin: 20px 0;
+}
+
+/* Chips/etiquetas pequeñas */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  background: var(--fondo-tarjeta-hover);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-pill);
+  font-size: 12px;
+  color: var(--texto-secundario);
+}
+
+/* ──────────────────────────────────────────
+   RESPONSIVE — TABLETS (max 1024px)
+   ────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .grid-dos-columnas   { grid-template-columns: 1fr; }
+  .grid-tres-columnas  { grid-template-columns: 1fr 1fr; }
+
+  .panel-marca { display: none; } /* Ocultar panel de marca en tablet */
+
+  .panel-formulario {
+    width: 100%;
+    border-left: none;
+  }
+}
+
+/* ──────────────────────────────────────────
+   RESPONSIVE — MÓVIL (max 768px)
+   ────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Sidebar se convierte en cajón lateral */
+  .sidebar {
+    transform: translateX(-100%);  /* Oculto fuera de pantalla */
+    box-shadow: var(--sombra-lg);
+  }
+
+  /* Clase para mostrar sidebar en móvil */
+  .sidebar.abierto {
+    transform: translateX(0);
+  }
+
+  /* El contenido ocupa todo el ancho */
+  .contenido-principal {
+    margin-left: 0;
+  }
+
+  /* Mostrar botón de menú hamburguesa */
+  .boton-menu-movil {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Reducir padding del header */
+  .header-pagina { padding: 0 16px; }
+
+  /* Reducir padding del scroll */
+  .pagina-scroll { padding: 16px; }
+
+  /* Grid de estadísticas en columna única */
+  .grid-estadisticas { grid-template-columns: 1fr 1fr; }
+
+  /* Ocultar texto en la barra de herramientas */
+  .barra-herramientas { flex-direction: column; align-items: stretch; }
+
+  .campo-busqueda { max-width: 100%; }
+
+  /* Tabla responsive — texto más pequeño */
+  .tabla-datos thead th,
+  .tabla-datos tbody td { padding: 10px 12px; font-size: 13px; }
+
+  /* Mensaje de chat ocupa más ancho */
+  .mensaje { max-width: 90%; }
+
+  /* Grid 3 col → 1 col */
+  .grid-tres-columnas { grid-template-columns: 1fr; }
+}
+
+/* ──────────────────────────────────────────
+   RESPONSIVE — MÓVIL PEQUEÑO (max 480px)
+   ────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .grid-estadisticas { grid-template-columns: 1fr; }
+
+  .tarjeta-estadistica { padding: 18px; }
+  .info-estadistica .valor-estadistica { font-size: 24px; }
+
+  .pagina-scroll { padding: 12px; }
+
+  /* Login centrado en pantalla completa */
+  .panel-formulario { padding: 40px 20px; }
+
+  .tarjeta-login { max-width: 100%; }
+}
+
+/* ──────────────────────────────────────────
+   ANIMACIONES DE ENTRADA
+   ────────────────────────────────────────── */
+@keyframes desvanecer-arriba {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animar-entrada {
+  animation: desvanecer-arriba 0.35s ease forwards;
+}
+
+/* Retrasos escalonados para elementos en lista */
+.animar-entrada:nth-child(1) { animation-delay: 0s;    }
+.animar-entrada:nth-child(2) { animation-delay: 0.05s; }
+.animar-entrada:nth-child(3) { animation-delay: 0.1s;  }
+.animar-entrada:nth-child(4) { animation-delay: 0.15s; }
+
+/* ──────────────────────────────────────────
+   NOTIFICACIONES TOAST
+   ────────────────────────────────────────── */
+#contenedor-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: var(--fondo-panel);
+  border: 1px solid var(--borde-hover);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra-lg);
+  font-size: 14px;
+  color: var(--texto-principal);
+  pointer-events: all;
+  animation: entradaToast 0.3s ease;
+  min-width: 280px;
+  max-width: 380px;
+}
+
+.toast .icono-toast { font-size: 18px; flex-shrink: 0; }
+.toast.exito  { border-left: 3px solid var(--exito);      }
+.toast.error  { border-left: 3px solid var(--error);      }
+.toast.info   { border-left: 3px solid var(--primario);   }
+
+@keyframes entradaToast {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ──────────────────────────────────────────
+   FIX SELECT — opciones con fondo oscuro
+   El <select> nativo en dark theme muestra el
+   dropdown con fondo blanco del sistema. Forzamos
+   colores en los <option> para que sea legible.
+   ────────────────────────────────────────── */
+.filtro-select option {
+  background-color: #12122a; /* Fondo oscuro en el dropdown */
+  color: #f0f4f8;            /* Texto claro */
+}
+
+/* ──────────────────────────────────────────
+   PANEL DE NOTIFICACIONES
+   Dropdown flotante debajo de la campana.
+   ────────────────────────────────────────── */
+.panel-notificaciones {
+  position: fixed;
+  z-index: 150;
+  width: 340px;
+  background: var(--fondo-panel);
+  border: 1px solid var(--borde-hover);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra-lg);
+  overflow: hidden;
+  display: none;                  /* Oculto por defecto */
+  animation: entradaToast 0.2s ease;
+}
+
+/* Estado visible del panel */
+.panel-notificaciones.visible { display: block; }
+
+/* Cabecera del panel */
+.panel-notif-cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--borde);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--texto-principal);
+}
+
+/* Botón "marcar todo leído" */
+.boton-leer-todo {
+  background: none;
+  border: none;
+  color: var(--primario);
+  font-size: 12px;
+  font-family: var(--fuente);
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  transition: var(--transicion);
+}
+.boton-leer-todo:hover { opacity: 0.75; text-decoration: underline; }
+
+/* Lista de notificaciones con scroll */
+.lista-notificaciones { max-height: 340px; overflow-y: auto; }
+
+/* Item individual de notificación */
+.item-notificacion {
+  display: flex;
+  gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--borde);
+  transition: var(--transicion);
+  cursor: default;
+  position: relative;
+}
+.item-notificacion:last-child  { border-bottom: none; }
+.item-notificacion:hover       { background: var(--fondo-tarjeta-hover); }
+.item-notificacion.leida       { opacity: 0.55; }
+
+/* Ícono circular de la notificación */
+.icono-notif {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: var(--radio);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+.icono-notif.error       { background: var(--error-claro);       color: var(--error); }
+.icono-notif.advertencia { background: var(--advertencia-claro); color: var(--advertencia); }
+.icono-notif.info        { background: var(--info-claro);        color: var(--info); }
+.icono-notif.exito       { background: var(--exito-claro);       color: var(--exito); }
+
+/* Texto de la notificación */
+.contenido-notif .titulo-notif {
+  font-size: 13px; font-weight: 600;
+  color: var(--texto-principal); margin-bottom: 2px;
+}
+.contenido-notif .desc-notif  { font-size: 12px; color: var(--texto-secundario); margin-bottom: 3px; }
+.contenido-notif .tiempo-notif { font-size: 11px; color: var(--texto-suave); }
+
+/* Punto azul de "no leída" */
+.punto-no-leida {
+  position: absolute;
+  top: 18px; right: 16px;
+  width: 7px; height: 7px;
+  background: var(--primario);
+  border-radius: 50%;
+}
+
+/* ──────────────────────────────────────────
+   PANEL DE CONFIGURACIÓN (lateral deslizante)
+   ────────────────────────────────────────── */
+.panel-configuracion {
+  position: fixed;
+  top: 0;
+  right: -400px;               /* Fuera de pantalla por defecto */
+  width: 360px;
+  height: 100vh;
+  background: var(--fondo-panel);
+  border-left: 1px solid var(--borde-hover);
+  z-index: 150;
+  transition: right 0.3s ease;
+  overflow-y: auto;
+  box-shadow: var(--sombra-lg);
+}
+
+/* Estado abierto — desliza hacia adentro */
+.panel-configuracion.abierto { right: 0; }
+
+/* Cabecera del panel de configuración */
+.config-cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--borde);
+  position: sticky;
+  top: 0;
+  background: var(--fondo-panel);
+  z-index: 1;
+}
+
+.config-cabecera h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--texto-principal);
+}
+
+/* Sección dentro del panel de configuración */
+.config-seccion {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--borde);
+}
+
+.config-seccion-titulo {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--texto-suave);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin-bottom: 16px;
+}
+
+/* Campo de dato del perfil */
+.config-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 14px;
+  padding: 10px 12px;
+  background: var(--fondo-tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-sm);
+}
+.config-campo:last-child { margin-bottom: 0; }
+.config-campo label { font-size: 10px; color: var(--texto-suave); text-transform: uppercase; letter-spacing: 1px; }
+.config-campo span  { font-size: 14px; color: var(--texto-principal); font-weight: 500; }
+
+/* ──────────────────────────────────────────
+   AJUSTES FONT AWESOME
+   Normaliza el tamaño y alineación de los iconos FA
+   en todos los contenedores del sistema.
+   ────────────────────────────────────────── */
+
+/* Ícono del logo en sidebar y login */
+.icono-logo i { font-size: 18px; color: #fff; }
+
+/* Íconos en la navegación lateral */
+.nav-icono { display: flex; align-items: center; justify-content: center; }
+.nav-icono i { font-size: 15px; }
+
+/* Hover del nav-enlace: el texto siempre visible */
+.nav-enlace:hover .nav-texto,
+.nav-enlace.activo .nav-texto { color: inherit; }
+
+/* Íconos KPI dentro de tarjeta estadística */
+.icono-estadistica i { font-size: 22px; }
+
+/* Íconos dentro de botones de acción */
+.boton-accion i,
+.boton-secundario i,
+.boton-primario i { font-size: 13px; }
+
+/* Ícono en el campo de búsqueda */
+.icono-busqueda { display:flex; align-items:center; }
+.icono-busqueda i { font-size: 14px; }
+
+/* Ícono dentro del campo de formulario (login) */
+.campo-con-icono .icono-campo { display:flex; align-items:center; }
+.campo-con-icono .icono-campo i { font-size: 14px; }
+
+/* Toggle de contraseña */
+.toggle-password i { font-size: 14px; pointer-events: none; }
+
+/* Ícono del botón cerrar sesión */
+.boton-cerrar-sesion i { font-size: 15px; min-width: 15px; }
+
+/* Íconos del header (campana, gear) */
+.boton-icono i { font-size: 15px; }
+
+/* Íconos del estado vacío */
+.icono-vacio i { font-size: 48px; opacity: 0.35; }
+.estado-vacio .icono-vacio { font-size: 1px; } /* reset del emoji herencia */
+
+/* Ícono del botón hamburguesa */
+.boton-menu-movil i { font-size: 20px; }
+
+/* Botón enviar chat */
+.boton-enviar i { font-size: 16px; }
+
+/* Hover del boton-cerrar-sesion: texto siempre visible */
+.boton-cerrar-sesion:hover span { color: var(--error); }
+
+/* ── FIX: el texto en hover de nav NO desaparece ── */
+.nav-enlace,
+.nav-enlace * { color: inherit; }
+.nav-enlace:hover { color: var(--texto-principal); }
+.nav-enlace.activo { color: var(--primario); }
+
+/* ── FIX: etiqueta de KPI más visible ── */
+.etiqueta-estadistica {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--texto-secundario);  /* Antes era texto-suave (muy gris) */
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 6px;
+}
+
+/* ── FIX: las filas de la tabla no pierden texto al hover ── */
+.tabla-datos tbody tr:hover td { color: var(--texto-principal); }
+
+/* ── FIX: botones deshabilitados de paginación ── */
+.boton-pagina:disabled { opacity: 0.35; cursor: not-allowed; pointer-events: none; }
+
+/* ── FIX: animar-entrada NO se dispara en re-renders de JS ──
+   La clase se mantiene en CSS pero solo para elementos
+   estáticamente declarados en el HTML, no en innerHTML.   */
+.animar-entrada { animation: desvanecer-arriba 0.3s ease both; }
+

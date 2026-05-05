@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mis Facturas — ClientePortal</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%236366f1'/></svg>" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="css/estilos.css" />
+  <style>
+    .tabla-items-factura { width:100%; border-collapse:collapse; margin-top:12px; }
+    .tabla-items-factura th {
+      font-size:11px; color:var(--texto-suave); text-transform:uppercase; letter-spacing:1px;
+      padding:8px 12px; border-bottom:1px solid var(--borde); text-align:left;
+    }
+    .tabla-items-factura td { padding:10px 12px; font-size:13px; border-bottom:1px solid var(--borde); color:var(--texto-principal); }
+    .tabla-items-factura tr:last-child td { border-bottom:none; }
+    .fila-total td { font-weight:700; border-top:1px solid var(--borde-hover)!important; padding-top:14px!important; }
+    .grilla-detalle { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px; }
+    .campo-detalle { padding:12px; background:var(--fondo-tarjeta); border:1px solid var(--borde); border-radius:var(--radio); display:flex; flex-direction:column; gap:4px; }
+    .campo-detalle .etiqueta { font-size:11px; color:var(--texto-suave); text-transform:uppercase; letter-spacing:1px; }
+    .campo-detalle .valor    { font-size:14px; font-weight:600; color:var(--texto-principal); }
+  </style>
+</head>
+<body>
+
+  <div class="overlay-sidebar" id="overlay-sidebar"></div>
+
+  <div class="app-contenedor">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar-principal">
+      <div class="sidebar-logo">
+        <div class="icono-logo"><i class="fa-solid fa-layer-group"></i></div>
+        <div class="texto-logo">
+          <div class="nombre-logo">ClientePortal</div>
+          <div class="version-logo">v1.0 &middot; Portafolio</div>
+        </div>
+      </div>
+      <div class="sidebar-usuario">
+        <div class="avatar-usuario" id="perfil-avatar">??</div>
+        <div class="info-perfil">
+          <div class="nombre-perfil" id="perfil-nombre">Cargando...</div>
+          <div class="empresa-perfil" id="perfil-empresa">—</div>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <span class="nav-seccion-titulo">Menú principal</span>
+        <a href="dashboard.html" class="nav-enlace"><span class="nav-icono"><i class="fa-solid fa-chart-line"></i></span><span class="nav-texto">Dashboard</span></a>
+        <a href="facturas.html"  class="nav-enlace"><span class="nav-icono"><i class="fa-solid fa-file-invoice-dollar"></i></span><span class="nav-texto">Mis Facturas</span></a>
+        <a href="pedidos.html"   class="nav-enlace"><span class="nav-icono"><i class="fa-solid fa-boxes-stacked"></i></span><span class="nav-texto">Mis Pedidos</span></a>
+        <a href="chat.html"      class="nav-enlace"><span class="nav-icono"><i class="fa-solid fa-headset"></i></span><span class="nav-texto">Soporte</span></a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="boton-cerrar-sesion" id="boton-cerrar-sesion">
+          <i class="fa-solid fa-right-from-bracket"></i><span>Cerrar sesión</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="contenido-principal">
+
+      <header class="header-pagina">
+        <div class="titulo-pagina">
+          <button class="boton-menu-movil" id="boton-menu-movil" aria-label="Abrir menú">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <h1>Mis Facturas</h1>
+        </div>
+        <div class="header-acciones">
+          <div class="boton-icono" title="Notificaciones">
+            <i class="fa-solid fa-bell"></i>
+            <span class="punto-notificacion"></span>
+          </div>
+        </div>
+      </header>
+
+      <div class="pagina-scroll">
+
+        <!-- KPIs -->
+        <div class="grid-estadisticas" id="resumen-facturas" style="margin-bottom:24px;"></div>
+
+        <!-- Tarjeta con tabla -->
+        <div class="tarjeta">
+          <div class="barra-herramientas">
+            <div class="campo-busqueda">
+              <span class="icono-busqueda"><i class="fa-solid fa-magnifying-glass"></i></span>
+              <input type="text" id="buscador-facturas" placeholder="Buscar por número o descripción..." aria-label="Buscar factura" />
+            </div>
+            <select class="filtro-select" id="filtro-estado" aria-label="Filtrar por estado">
+              <option value="">Todos los estados</option>
+              <option value="pagada">Pagadas</option>
+              <option value="pendiente">Pendientes</option>
+              <option value="vencida">Vencidas</option>
+            </select>
+          </div>
+
+          <div class="contenedor-tabla">
+            <table class="tabla-datos" id="tabla-facturas">
+              <thead>
+                <tr>
+                  <th>Número</th>
+                  <th>Descripción</th>
+                  <th>Fecha</th>
+                  <th>Vencimiento</th>
+                  <th>Monto</th>
+                  <th>Estado</th>
+                  <th>Acción</th>
+                </tr>
+              </thead>
+              <tbody id="cuerpo-tabla-facturas"></tbody>
+            </table>
+          </div>
+
+          <div id="sin-resultados-facturas" class="estado-vacio" style="display:none;">
+            <div class="icono-vacio"><i class="fa-solid fa-magnifying-glass"></i></div>
+            <h3>Sin resultados</h3>
+            <p>No se encontraron facturas que coincidan con tu búsqueda.</p>
+          </div>
+
+          <div class="paginacion" id="paginacion-facturas"></div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal de detalle de factura -->
+  <div class="overlay-modal" id="overlay-modal-factura">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="titulo-modal-factura">
+      <div class="modal-cabecera">
+        <h3 id="titulo-modal-factura">Detalle de Factura</h3>
+        <button class="boton-cerrar-modal" id="cerrar-modal-factura" aria-label="Cerrar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-cuerpo" id="cuerpo-modal-factura"></div>
+    </div>
+  </div>
+
+  <div id="contenedor-toast" aria-live="polite"></div>
+  <script src="js/datos.js"></script>
+  <script src="js/autenticacion.js"></script>
+  <script src="js/facturas.js"></script>
+</body>
+</html>

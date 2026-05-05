@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — ClientePortal</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%236366f1'/></svg>" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="css/estilos.css" />
+</head>
+<body>
+
+  <div class="overlay-sidebar" id="overlay-sidebar"></div>
+
+  <div class="app-contenedor">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar-principal">
+      <div class="sidebar-logo">
+        <div class="icono-logo"><i class="fa-solid fa-layer-group"></i></div>
+        <div class="texto-logo">
+          <div class="nombre-logo">ClientePortal</div>
+          <div class="version-logo">v1.0 &middot; Portafolio</div>
+        </div>
+      </div>
+
+      <div class="sidebar-usuario">
+        <div class="avatar-usuario" id="perfil-avatar">??</div>
+        <div class="info-perfil">
+          <div class="nombre-perfil" id="perfil-nombre">Cargando...</div>
+          <div class="empresa-perfil" id="perfil-empresa">—</div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <span class="nav-seccion-titulo">Menú principal</span>
+        <a href="dashboard.html" class="nav-enlace">
+          <span class="nav-icono"><i class="fa-solid fa-chart-line"></i></span>
+          <span class="nav-texto">Dashboard</span>
+        </a>
+        <a href="facturas.html" class="nav-enlace">
+          <span class="nav-icono"><i class="fa-solid fa-file-invoice-dollar"></i></span>
+          <span class="nav-texto">Mis Facturas</span>
+        </a>
+        <a href="pedidos.html" class="nav-enlace">
+          <span class="nav-icono"><i class="fa-solid fa-boxes-stacked"></i></span>
+          <span class="nav-texto">Mis Pedidos</span>
+        </a>
+        <a href="chat.html" class="nav-enlace">
+          <span class="nav-icono"><i class="fa-solid fa-headset"></i></span>
+          <span class="nav-texto">Soporte</span>
+          <span class="nav-badge">1</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="boton-cerrar-sesion" id="boton-cerrar-sesion">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span>Cerrar sesión</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="contenido-principal">
+
+      <header class="header-pagina">
+        <div class="titulo-pagina">
+          <button class="boton-menu-movil" id="boton-menu-movil" aria-label="Abrir menú">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <h1>Dashboard</h1>
+        </div>
+        <div class="header-acciones">
+          <div class="boton-icono" title="Notificaciones">
+            <i class="fa-solid fa-bell"></i>
+            <span class="punto-notificacion"></span>
+          </div>
+          <div class="boton-icono" title="Configuración">
+            <i class="fa-solid fa-gear"></i>
+          </div>
+        </div>
+      </header>
+
+      <div class="pagina-scroll">
+
+        <!-- Saludo -->
+        <div style="margin-bottom:28px;">
+          <h2 id="saludo-usuario" style="font-size:22px;font-weight:700;letter-spacing:-0.5px;color:var(--texto-principal);">Hola...</h2>
+          <p id="fecha-hoy" style="color:var(--texto-suave);font-size:14px;margin-top:4px;"></p>
+        </div>
+
+        <!-- KPIs -->
+        <div class="grid-estadisticas" id="grid-estadisticas" style="margin-bottom:28px;"></div>
+
+        <!-- Grid dos columnas -->
+        <div class="grid-dos-columnas">
+
+          <div class="tarjeta">
+            <div class="seccion-encabezado">
+              <div>
+                <h2>Facturas recientes</h2>
+                <p>Últimas 3 facturas</p>
+              </div>
+              <a href="facturas.html" class="boton-accion boton-sm">
+                Ver todas <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+            <div id="lista-facturas-recientes"></div>
+          </div>
+
+          <div class="tarjeta">
+            <div class="seccion-encabezado">
+              <div>
+                <h2>Pedidos activos</h2>
+                <p>En proceso y en tránsito</p>
+              </div>
+              <a href="pedidos.html" class="boton-accion boton-sm">
+                Ver todos <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+            <div id="lista-pedidos-activos"></div>
+          </div>
+
+        </div>
+
+        <!-- Resumen financiero -->
+        <div class="tarjeta">
+          <div class="seccion-encabezado">
+            <div>
+              <h2>Resumen financiero</h2>
+              <p>Estado general de facturación</p>
+            </div>
+          </div>
+          <div id="resumen-financiero" style="display:flex;flex-direction:column;gap:16px;"></div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <div id="contenedor-toast" aria-live="polite"></div>
+  <script src="js/datos.js"></script>
+  <script src="js/autenticacion.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

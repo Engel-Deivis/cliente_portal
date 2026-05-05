@@ -1,0 +1,19 @@
+{
+  "name": "portal-clientes",
+  "version": "1.0.0",
+  "description": "Portal de Clientes — Facturas, Pedidos y Soporte. Proyecto de portafolio web.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev":   "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": ["portal", "clientes", "facturas", "pedidos", "portafolio"],
+  "author": "Portafolio Web",
+  "license": "MIT"
+}

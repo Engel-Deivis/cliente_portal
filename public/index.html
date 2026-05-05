@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iniciar Sesión — ClientePortal</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%236366f1'/><text y='.9em' font-size='70' x='15'>CP</text></svg>" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="css/estilos.css" />
+  <style>
+    @keyframes sacudir {
+      0%,100% { transform:translateX(0); }
+      20%      { transform:translateX(-8px); }
+      40%      { transform:translateX(8px); }
+      60%      { transform:translateX(-5px); }
+      80%      { transform:translateX(5px); }
+    }
+    #formulario-login.sacudir { animation: sacudir 0.4s ease; }
+
+    .separador-demo {
+      display:flex; align-items:center; gap:12px;
+      margin:20px 0 16px; color:var(--texto-suave); font-size:12px;
+    }
+    .separador-demo::before,
+    .separador-demo::after { content:''; flex:1; height:1px; background:var(--borde); }
+  </style>
+</head>
+<body>
+
+  <main class="pagina-login">
+
+    <!-- Panel izquierdo: marca -->
+    <section class="panel-marca" aria-hidden="true">
+
+      <div class="logo-marca">
+        <div class="icono-logo"><i class="fa-solid fa-layer-group"></i></div>
+        <div>
+          <div class="nombre-app">ClientePortal</div>
+          <div class="subtitulo-marca">Portal de Gestión</div>
+        </div>
+      </div>
+
+      <div class="contenido-marca">
+        <h1>Tu portal de clientes, todo en un lugar</h1>
+        <p>Gestiona facturas, pedidos y soporte desde una plataforma moderna y segura.</p>
+
+        <ul class="lista-caracteristicas">
+          <li><span class="check"><i class="fa-solid fa-check"></i></span>Consulta y descarga tus facturas al instante</li>
+          <li><span class="check"><i class="fa-solid fa-check"></i></span>Seguimiento en tiempo real de tus pedidos</li>
+          <li><span class="check"><i class="fa-solid fa-check"></i></span>Chat directo con el equipo de soporte</li>
+          <li><span class="check"><i class="fa-solid fa-check"></i></span>Dashboard con resumen financiero completo</li>
+        </ul>
+      </div>
+
+    </section>
+
+    <!-- Panel derecho: formulario -->
+    <section class="panel-formulario">
+      <div class="tarjeta-login">
+
+        <div class="encabezado-login">
+          <h2>Bienvenido de nuevo</h2>
+          <p>Ingresa tus credenciales para acceder al portal</p>
+        </div>
+
+        <form id="formulario-login" novalidate>
+
+          <div class="grupo-campo">
+            <label for="campo-email">Correo electrónico</label>
+            <div class="campo-con-icono">
+              <input type="email" id="campo-email" placeholder="tu@email.com" autocomplete="email" required />
+              <span class="icono-campo"><i class="fa-solid fa-envelope"></i></span>
+            </div>
+          </div>
+
+          <div class="grupo-campo">
+            <label for="campo-password">Contraseña</label>
+            <div class="campo-con-icono">
+              <input type="password" id="campo-password" placeholder="••••••••" autocomplete="current-password" required />
+              <span class="icono-campo"><i class="fa-solid fa-lock"></i></span>
+              <button type="button" class="toggle-password" id="toggle-password" aria-label="Mostrar contraseña">
+                <i class="fa-solid fa-eye" id="icono-ojo"></i>
+              </button>
+            </div>
+          </div>
+
+          <div id="mensaje-error" role="alert">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span class="texto-error"></span>
+          </div>
+
+          <button type="submit" class="boton-primario" id="boton-ingresar">
+            Ingresar al portal
+          </button>
+
+        </form>
+
+        <div class="separador-demo">o prueba con una cuenta demo</div>
+
+        <div class="credenciales-demo">
+          <p><i class="fa-solid fa-user-shield"></i> &nbsp;Cuentas de demostración</p>
+
+          <div class="usuario-demo" data-email="admin@portal.com" data-pass="Admin2024">
+            <div class="info-usuario">
+              <span class="nombre-usuario">Carlos Mendoza</span>
+              <span class="email-usuario">admin@portal.com &middot; Admin2024</span>
+            </div>
+            <span class="badge-rol admin">Admin</span>
+          </div>
+
+          <div class="usuario-demo" data-email="maria@demo.com" data-pass="Maria2024">
+            <div class="info-usuario">
+              <span class="nombre-usuario">María González</span>
+              <span class="email-usuario">maria@demo.com &middot; Maria2024</span>
+            </div>
+            <span class="badge-rol cliente">Cliente</span>
+          </div>
+
+          <div class="usuario-demo" data-email="juan@demo.com" data-pass="Juan2024">
+            <div class="info-usuario">
+              <span class="nombre-usuario">Juan Pérez</span>
+              <span class="email-usuario">juan@demo.com &middot; Juan2024</span>
+            </div>
+            <span class="badge-rol cliente">Cliente</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="contenedor-toast" aria-live="polite"></div>
+  <script src="js/datos.js"></script>
+  <script src="js/autenticacion.js"></script>
+  <script>
+    /* Actualiza el ícono del ojo al hacer toggle de contraseña */
+    document.getElementById("toggle-password")?.addEventListener("click", function() {
+      const input  = document.getElementById("campo-password");
+      const icono  = document.getElementById("icono-ojo");
+      const oculto = input.type === "password";
+      input.type   = oculto ? "text" : "password";
+      icono.className = oculto ? "fa-solid fa-eye-slash" : "fa-solid fa-eye";
+    });
+  </script>
+</body>
+</html>
