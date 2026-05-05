@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "comment": "Configuración de despliegue en Vercel — Portal de Clientes",
   "builds": [
     {
       "src": "public/**",
